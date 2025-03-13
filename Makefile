@@ -27,3 +27,18 @@ all: ${NAME}
 
 ${NAME} : ${OBJS}
 	${CC} ${OBJS} ${CFLAGS} ${MLXFLAGS} -o ${NAME}
+
+bonus: ${BONUS}
+	
+${BONUS}: ${OBJS_BONUS}
+	${CC} ${OBJS_BONUS} ${CFLAGS} ${MLXFLAGS} -o ${BONUS}
+	
+clean:
+	${RM} ${OBJS} ${OBJS_BONUS}
+
+fclean: clean
+	${RM} ${NAME} ${BONUS}
+
+re: fclean all
+
+.PHONY: all clean fclean re bonus
