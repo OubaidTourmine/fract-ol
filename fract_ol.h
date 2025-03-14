@@ -43,3 +43,48 @@ typedef struct s_complx
 
 typedef struct s_data
 {
+	int				height;
+	int				width;
+	void			*mlx;
+	void			*mlx_win;
+	void			*img;
+	char			*addr;
+	int				bits_per_pixel;
+	int				line_length;
+	int				endian;
+	int				itter;
+	t_color			color;
+	t_complx		cmplx;
+	t_complx		julia_params;
+}					t_data;
+
+int					color_handler_cubic(int keycode, t_data *data);
+int					mouse_handler_cubic(int mousecode, int x, int y,
+						t_data *data);
+int					key_handler_cubic(int keycode, t_data *data);
+void				cubic_mandelbrot_render(t_data *data);
+void				cubic_mandelbrot(void);
+double				atoidbl(char *s);
+int					mouse_handler(int mousecode, int x, int y, t_data *data);
+int					key_handler(int keycode, t_data *data);
+int					mouse_handler_julia(int mousecode, int x, int y,
+						t_data *data);
+int					key_handler_julia(int keycode, t_data *data);
+int					ft_x(t_data *data);
+void				handle_pixel_julia(int x, int y, t_data *data);
+void				handle_pixel_mandelbrot(int x, int y, t_data *data);
+t_complx			square(t_complx z);
+t_complx			sum(t_complx z1, t_complx z2);
+void				julia_render(t_data *data);
+void				mandelbrot_render(t_data *data);
+unsigned int		ft_color(t_color *color, int i);
+double				scale(double unscaled_num, double new_min, double new_max,
+						double old_max);
+void				my_mlx_pixel_put(t_data *data, int x, int y, int color);
+int					color_handler(int keycode, t_data *data);
+int					color_handler_julia(int keycode, t_data *data);
+void				mandelbrot(void);
+void				ft_putstr_fd(char *str);
+int					ft_strcmp(char *s1, char *s2);
+
+#endif
