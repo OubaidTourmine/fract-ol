@@ -91,3 +91,50 @@ int	handle_param(char *str)
 {
 	int	i;
 	int	point;
+
+	point = 0;
+	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	if (!str[i])
+		return (0);
+	while (str[i])
+	{
+		if (str[i] == '.')
+			point++;
+		else if (!(str[i] >= 48 && str[i] <= 57))
+			return (0);
+		i++;
+	}
+	if (point > 1)
+		return (0);
+	return (1);
+}
+
+int	main(int ac, char **av)
+{
+	t_complx	*c;
+
+	if (ac == 2 && ft_strcmp(av[1], "mandelbrot") == 0)
+		mandelbrot();
+	else if (ac == 4 && ft_strcmp(av[1], "julia") == 0)
+	{
+		if (handle_param(av[2]) == 0 || handle_param(av[3]) == 0)
+		{
+			ft_putstr_fd("./fractol julia 'Correct value' 'Correct value'\n");
+			exit(0);
+		}
+		c = malloc(sizeof(t_complx));
+		c->x_r = atoidbl(av[2]);
+		c->y_i = atoidbl(av[3]);
+		julia(c);
+	}
+	else if (ac == 2 && ft_strcmp(av[1], "cubic") == 0)
+		cubic_mandelbrot();
+	else
+	{
+		ft_putstr_fd("Please enter a valid arguments :\n./fractol_bonus ");
+		ft_putstr_fd("mandlebrot\nor\n./fractol_bonus julia 'value1'");
+		ft_putstr_fd(" 'value2'\nor\n./fract_ol_bonus cubic\n");
+	}
+}
