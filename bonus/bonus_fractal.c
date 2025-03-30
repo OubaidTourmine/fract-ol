@@ -44,3 +44,50 @@ void	mandelbrot(void)
 	data = malloc(sizeof(t_data));
 	data->color.red = 255;
 	data->color.green = 255;
+	data->color.blue = 255;
+	data->mlx = mlx_init();
+	data->itter = 100;
+	data->cmplx.zoom = 1.0;
+	data->mlx_win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "mandelbrot");
+	data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel,
+			&data->line_length, &data->endian);
+	data->cmplx.shift_x = 0.0;
+	data->cmplx.shift_y = 0.0;
+	mandelbrot_render(data);
+	mlx_hook(data->mlx_win, 2, 1L << 0, key_handler, data);
+	mlx_hook(data->mlx_win, 17, 1L << 0, ft_x, data);
+	mlx_hook(data->mlx_win, 4, 1L << 2, mouse_handler, data);
+	mlx_loop(data->mlx);
+}
+
+void	julia(t_complx *parameters)
+{
+	t_data	*data;
+
+	data = malloc(sizeof(t_data));
+	data->color.red = 255;
+	data->color.green = 255;
+	data->color.blue = 255;
+	data->mlx = mlx_init();
+	data->itter = 100;
+	data->cmplx.zoom = 1.0;
+	data->mlx_win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "julia");
+	data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel,
+			&data->line_length, &data->endian);
+	data->cmplx.shift_x = 0.0;
+	data->cmplx.shift_y = 0.0;
+	data->julia_params = *parameters;
+	free(parameters);
+	julia_render(data);
+	mlx_hook(data->mlx_win, 2, 1L << 0, key_handler_julia, data);
+	mlx_hook(data->mlx_win, 17, 1L << 0, ft_x, data);
+	mlx_hook(data->mlx_win, 4, 1L << 2, mouse_handler_julia, data);
+	mlx_loop(data->mlx);
+}
+
+int	handle_param(char *str)
+{
+	int	i;
+	int	point;
