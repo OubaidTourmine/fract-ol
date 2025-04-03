@@ -70,3 +70,39 @@ int	color_handler(int keycode, t_data *data)
 	else if (keycode == 103)
 	{
 		data->color.red = 0;
+		data->color.green = 255;
+		data->color.blue = 0;
+	}
+	else if (keycode == 98)
+	{
+		data->color.red = 0;
+		data->color.green = 0;
+		data->color.blue = 255;
+	}
+	mandelbrot_render(data);
+	return (0);
+}
+
+int	color_handler_cubic(int keycode, t_data *data)
+{
+	if (keycode == 114)
+	{
+		data->color.red = 255;
+		data->color.green = 0;
+		data->color.blue = 0;
+	}
+	else if (keycode == 103)
+	{
+		data->color.red = 0;
+		data->color.green = 255;
+		data->color.blue = 0;
+	}
+	else if (keycode == 98)
+	{
+		data->color.red = 0;
+		data->color.green = 0;
+		data->color.blue = 255;
+	}
+	cubic_mandelbrot_render(data);
+	return (0);
+}
