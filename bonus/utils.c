@@ -34,3 +34,39 @@ int	mouse_handler(int mousecode, int x, int y, t_data *data)
 	mandelbrot_render(data);
 	return (0);
 }
+
+int	key_handler(int keycode, t_data *data)
+{
+	color_handler(keycode, data);
+	if (keycode == 65307)
+	{
+		mlx_destroy_image(data->mlx, data->img);
+		mlx_destroy_window(data->mlx, data->mlx_win);
+		mlx_destroy_display(data->mlx);
+		free(data->mlx);
+		free(data);
+		exit(1);
+	}
+	else if (keycode == 65363)
+		data->cmplx.shift_x += 0.1 * data->cmplx.zoom;
+	else if (keycode == 65361)
+		data->cmplx.shift_x -= 0.1 * data->cmplx.zoom;
+	else if (keycode == 65362)
+		data->cmplx.shift_y += 0.1 * data->cmplx.zoom;
+	else if (keycode == 65364)
+		data->cmplx.shift_y -= 0.1 * data->cmplx.zoom;
+	mandelbrot_render(data);
+	return (0);
+}
+
+int	color_handler(int keycode, t_data *data)
+{
+	if (keycode == 114)
+	{
+		data->color.red = 255;
+		data->color.green = 0;
+		data->color.blue = 0;
+	}
+	else if (keycode == 103)
+	{
+		data->color.red = 0;
